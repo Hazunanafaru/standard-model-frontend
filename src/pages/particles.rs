@@ -1,12 +1,12 @@
 use gloo::console::log;
-use wasm_bindgen::{JsCast, JsValue, prelude::wasm_bindgen};
-use wasm_bindgen_futures::JsFuture;
-use web_sys::{window, RequestInit, Request, Response, RequestMode};
-use serde_wasm_bindgen::from_value;
-use yew::prelude::*;
 use serde::{Deserialize, Serialize};
+use serde_wasm_bindgen::from_value;
+use wasm_bindgen::{prelude::wasm_bindgen, JsCast, JsValue};
+use wasm_bindgen_futures::JsFuture;
+use web_sys::{window, Request, RequestInit, RequestMode, Response};
+use yew::prelude::*;
 
-use crate::content::{ParticleData};
+use crate::content::ParticleData;
 
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
 pub struct Particles {
@@ -15,7 +15,7 @@ pub struct Particles {
 
 pub enum Msg {
     FetchParticles(JsValue),
-    FetchFailed(JsValue)
+    FetchFailed(JsValue),
 }
 
 // DISABLE TILL I FOUND OUT HOW TO FETCH API VIA YEW OR WEB_SYS OR WASM_BINDGEN
@@ -37,8 +37,7 @@ pub async fn fetch_particles(link_url: &str) -> Result<JsValue, JsValue> {
     // Configure our result
     log!(JsValue::from("Configure our result"));
     let window = window().unwrap();
-    let resp_js_value = JsFuture::from(window.fetch_with_request(&request))
-        .await;
+    let resp_js_value = JsFuture::from(window.fetch_with_request(&request)).await;
 
     log!(JsValue::from("Return the Result"));
     create_particles();
@@ -66,24 +65,22 @@ impl Component for Particles {
                     log!(JsValue::from("image"));
                     log!(image.clone());
                     Msg::FetchParticles(image)
-                },
+                }
                 Err(err) => Msg::FetchFailed(err),
             }
         });
         Self {
-            particles: vec![
-                ParticleData {
-                    part_id: 2,
-                    part_type: "quark".to_string(),
-                    part_name: "down".to_string(),
-                    mass: 4700000,
-                    charge: "-1/3".to_string(),
-                    spin: "1/2".to_string(),
-                    // image_url: "test".to_string(),
-                    created_at: chrono::Local::now().naive_local(),
-                    updated_at: chrono::Local::now().naive_local(),
-                }
-            ],
+            particles: vec![ParticleData {
+                part_id: 2,
+                part_type: "quark".to_string(),
+                part_name: "down".to_string(),
+                mass: 4700000,
+                charge: "-1/3".to_string(),
+                spin: "1/2".to_string(),
+                // image_url: "test".to_string(),
+                created_at: chrono::Local::now().naive_local(),
+                updated_at: chrono::Local::now().naive_local(),
+            }],
         }
     }
 
