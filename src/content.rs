@@ -1,5 +1,6 @@
 use serde::{Deserialize, Serialize};
 
+// ParticleData structure
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
 pub struct ParticleData {
     pub part_id: i32,
@@ -12,8 +13,9 @@ pub struct ParticleData {
     pub updated_at: chrono::NaiveDateTime,
 }
 
+// Author structure
 #[derive(Clone, Debug, PartialEq, Eq, Deserialize, Serialize)]
-pub struct About {
+pub struct Author {
     pub name: String,
     pub keywords: Vec<String>,
     pub image_url: String,

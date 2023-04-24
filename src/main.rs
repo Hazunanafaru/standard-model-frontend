@@ -1,36 +1,17 @@
+use frontend::pages::{
+    about::About, home::Home, page_not_found::PageNotFound, particles::Particles,
+};
+use frontend::Route;
+use yew::html::Scope;
 use yew::prelude::*;
 use yew_router::prelude::*;
-use yew::html::Scope;
-// use app::App;
 
-mod components;
-mod content;
-mod pages;
-use pages::home::Home;
-use pages::page_not_found::PageNotFound;
-use pages::about::About;
-use pages::particles::Particles;
-// mod app;
-
-#[derive(Routable, PartialEq, Eq, Clone, Debug)]
-pub enum Route {
-    #[at("/")]
-    Home,
-    #[at("/about")]
-    About,
-    #[at("/creation")]
-    Creation,
-    #[at("/particles")]
-    Particles,
-    #[not_found]
-    #[at("/404")]
-    NotFound,
-}
-
+// Message to store ToggleNavbar
 pub enum Msg {
     ToggleNavbar,
 }
 
+// The base App Struct
 pub struct App {
     navbar_active: bool,
 }
@@ -40,7 +21,9 @@ impl Component for App {
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self { navbar_active: false, }
+        Self {
+            navbar_active: false,
+        }
     }
 
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
@@ -75,6 +58,7 @@ impl Component for App {
 }
 
 impl App {
+    // Method to create Navigation View when navbar_active is true
     fn view_nav(&self, link: &Scope<Self>) -> Html {
         let Self { navbar_active, .. } = *self;
 
@@ -121,11 +105,9 @@ fn switch(routes: Route) -> Html {
         }
         Route::Particles => {
             html! { <Particles />}
-            // html! {}
         }
         Route::Creation => {
             html! { <PageNotFound />}
-            // html! {}
         }
         Route::About => {
             html! { <About />}
