@@ -1,5 +1,6 @@
 use yew::prelude::*;
 
+// PageNotFound struct to serve basic 404 or in-construction pages
 pub struct PageNotFound;
 
 impl Component for PageNotFound {
@@ -10,7 +11,7 @@ impl Component for PageNotFound {
         Self
     }
 
-    fn view(&self,_ctx: &Context<Self>) -> Html {
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
             <section class="hero is-danger is-bold is-large">
                 <div class="hero-body">

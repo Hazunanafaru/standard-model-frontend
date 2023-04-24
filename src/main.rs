@@ -1,5 +1,5 @@
 use frontend::pages::{
-    about::About, home::Home, page_not_found::PageNotFound, particles::Particles,
+    about::Author, home::Home, page_not_found::PageNotFound, particles::Particles,
 };
 use frontend::Route;
 use yew::html::Scope;
@@ -110,7 +110,7 @@ fn switch(routes: Route) -> Html {
             html! { <PageNotFound />}
         }
         Route::About => {
-            html! { <About />}
+            html! { <Author />}
         }
         Route::NotFound => {
             html! { <PageNotFound />}
