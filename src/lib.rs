@@ -1,6 +1,5 @@
 use yew_router::prelude::*;
 
-pub mod components;
 pub mod content;
 pub mod pages;
 
@@ -8,13 +7,4 @@ pub mod pages;
 pub enum Route {
     #[at("/")]
     Home,
-    #[at("/about")]
-    About,
-    #[at("/creation")]
-    Creation,
-    #[at("/particles")]
-    Particles,
-    #[not_found]
-    #[at("/404")]
-    NotFound,
 }

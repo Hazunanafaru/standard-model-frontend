@@ -59,41 +59,41 @@ impl Component for App {
 
 impl App {
     // Method to create Navigation View when navbar_active is true
-    fn view_nav(&self, link: &Scope<Self>) -> Html {
+    fn view_nav(&self, _link: &Scope<Self>) -> Html {
         let Self { navbar_active, .. } = *self;
 
         let active_class = if !navbar_active { "is-active" } else { "" };
 
         html! {
-            <nav class="navbar is-primary" role="navigation" aria-label="main-navigation">
-                <div class="navbar-brand">
-                    <Link<Route> classes={classes!("navbar-item", "is-size-3")} to={Route::Home}>
-                        { "Standard Model" }
-                    </Link<Route>>
-
-                    <button class={classes!("navbar-burger", "burger", active_class)}
-                        aria-label="menu" aria-expanded="false"
-                        onclick={link.callback(|_| Msg::ToggleNavbar)}>
-
-                        <span aria-hiden="true"></span>
-                        <span aria-hiden="true"></span>
-                        <span aria-hiden="true"></span>
-                    </button>
-                </div>
-                <div class={classes!("navbar-menu", active_class)}>
-                    <div class="navbar-start">
-                        <Link<Route> classes={classes!("navbar-item")} to={Route::Creation}>
-                            { "Creation" }
-                        </Link<Route>>
-                        <Link<Route> classes={classes!("navbar-item")} to={Route::Particles}>
-                            { "Particles" }
-                        </Link<Route>>
-                        <Link<Route> classes={classes!("navbar-item")} to={Route::About}>
-                            { "About" }
-                        </Link<Route>>
-                    </div>
-                </div>
-            </nav>
+        //     <nav class="navbar is-primary" role="navigation" aria-label="main-navigation">
+        //         <div class="navbar-brand">
+        //             <Link<Route> classes={classes!("navbar-item", "is-size-3")} to={Route::Home}>
+        //                 { "Standard Model" }
+        //             </Link<Route>>
+        //
+        //             <button class={classes!("navbar-burger", "burger", active_class)}
+        //                 aria-label="menu" aria-expanded="false"
+        //                 onclick={link.callback(|_| Msg::ToggleNavbar)}>
+        //
+        //                 <span aria-hiden="true"></span>
+        //                 <span aria-hiden="true"></span>
+        //                 <span aria-hiden="true"></span>
+        //             </button>
+        //         </div>
+        //         <div class={classes!("navbar-menu", active_class)}>
+        //             <div class="navbar-start">
+        //                 <Link<Route> classes={classes!("navbar-item")} to={Route::Creation}>
+        //                     { "Creation" }
+        //                 </Link<Route>>
+        //                 <Link<Route> classes={classes!("navbar-item")} to={Route::Particles}>
+        //                     { "Particles" }
+        //                 </Link<Route>>
+        //                 <Link<Route> classes={classes!("navbar-item")} to={Route::About}>
+        //                     { "About" }
+        //                 </Link<Route>>
+        //             </div>
+        //         </div>
+        //     </nav>
         }
     }
 }
@@ -102,18 +102,6 @@ fn switch(routes: Route) -> Html {
     match routes {
         Route::Home => {
             html! { <Home />}
-        }
-        Route::Particles => {
-            html! { <Particles />}
-        }
-        Route::Creation => {
-            html! { <PageNotFound />}
-        }
-        Route::About => {
-            html! { <Author />}
-        }
-        Route::NotFound => {
-            html! { <PageNotFound />}
         }
     }
 }
