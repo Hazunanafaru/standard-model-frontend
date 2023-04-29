@@ -1,6 +1,4 @@
-use frontend::pages::{
-    about::Author, home::Home, page_not_found::PageNotFound, particles::Particles,
-};
+use frontend::pages::home::Home;
 use frontend::Route;
 use yew::html::Scope;
 use yew::prelude::*;
