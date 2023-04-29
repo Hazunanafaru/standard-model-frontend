@@ -1,9 +1,12 @@
-use crate::content;
+use crate::{
+    content::{Author, ParticleData},
+    utils::csv::read_author_csv,
+};
 use yew::prelude::*;
 
 pub struct Home {
-    author: content::Author,
-    particles: Vec<content::ParticleData>,
+    author: Author,
+    particles: Vec<ParticleData>,
 }
 
 impl Component for Home {
@@ -12,27 +15,8 @@ impl Component for Home {
 
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            author: content::Author {
-                name: "Husni Naufal Zuhdi".to_string(),
-                keywords: vec![
-                    "Kubernetes".to_string(),
-                    "Rust".to_string(),
-                    "DevOps".to_string(),
-                    "WebAssembly".to_string(),
-                ],
-                image_url: "https://avatars.githubusercontent.com/u/35314346".to_string(),
-            },
-            particles: vec![content::ParticleData {
-                part_id: 2,
-                part_type: "quark".to_string(),
-                part_name: "down".to_string(),
-                mass: 4700000,
-                charge: "-1/3".to_string(),
-                spin: "1/2".to_string(),
-                // image_url: "test".to_string(),
-                created_at: chrono::Local::now().naive_local(),
-                updated_at: chrono::Local::now().naive_local(),
-            }],
+            author: { read_author_csv().unwrap_or_else(|_| Author::default()) },
+            particles: vec![ParticleData::default()],
         }
     }
 
@@ -40,15 +24,18 @@ impl Component for Home {
         html! {
             <div class="tile is-ancestor is-vertical">
                 <div class="hero is-child hero">
-                    <div class="hero-body container pb-0">
-                        <h1 class="title is-1">{ "Welcome..." }</h1>
-                        <h2 class="subtitle">{ "...to the Standard Model!" }</h2>
+                    <div class="hero-body container pb-3">
+                        <h1 class="title is-1">
+                            { "Welcome to the Standard Model!" }
+                        </h1>
                     </div>
                 </div>
 
-                <div class="tile is-child">
+                <div class="tile is-child pu-3">
                     <figure class="image is-3by1">
-                        <img alt="Image of Standard Model" src="https://source.unsplash.com/random/1200x400/?abstract" />
+                        <img
+                            alt="Image of Standard Model"
+                            src="https://source.unsplash.com/random/1200x400/?abstract" />
                     </figure>
                 </div>
 
@@ -85,29 +72,6 @@ impl Home {
                         </div>
                     </div>
                 </div>
-
-                <div class="tile is-parent">
-                    <div class="tile is-child box">
-                        <p class="title">{ "Who am I?"}</p>
-
-                        <div class="content">
-                            {r#"
-                            I'm Husni from Yogyakarta, Indonesia.
-                            A software and former system engineer who like to learn a new thing.
-                            This website is a result of me learning many new tech included:
-                            "#}
-                            <ul>
-                                <li>{ "🏗 Kubernetes" }</li>
-                                <li>{ "⛵️ Istio" }</li>
-                                <li>{ "🦀 Rust (Actix Web and Yew)" }</li>
-                                <li>{ "🖥 Wasm" }</li>
-                            </ul>
-                            {r#"
-                            I hope you enjoy this website 🫶
-                            "#}
-                        </div>
-                    </div>
-                </div>
             </>
         }
     }
@@ -128,14 +92,14 @@ impl Home {
             <div class="section container">
                 <div class="tile is-ancestor is-vertical">
                     <div class="tile is-parent">
-                        <article class="tile is-child notification is-light">
-                            <p class="title">{ &author.name }</p>
+                        <article class="tile is-child is-light has-text-centered">
+                            <p class="title">{"Meet the author"}</p>
                         </article>
                     </div>
                     <div class="tile">
                         <div class="tile is-parent is-3">
                             <article class="tile is-child notification">
-                                <p class="title">{ "interests" }</p>
+                                <p class="title">{ "Interests" }</p>
                                 <div class="tags">
                                     { for author.keywords.iter().map(|tag| html! { <span class="tag is-info">{ tag }</span>} )}
                                 </div>
@@ -149,22 +113,17 @@ impl Home {
                         <div class="tile is-parent">
                             <article class="tile is-child notification is-info">
                                 <div class="content">
-                                    <p class="title">{ "About me" }</p>
+                                    <p class="title">{ author.name.clone() }</p>
                                     <div class="content">
                                     {r#"
-                                    I'm Husni from Yogyakarta, Indonesia.
+                                    I'm from Yogyakarta, Indonesia.
                                     A software and former system engineer who like to learn a new thing.
                                     This website is a result of me learning many new tech included:
                                     "#}
                                     <ul>
-                                        <li>{ "🏗 Kubernetes" }</li>
-                                        <li>{ "⛵️ Istio" }</li>
-                                        <li>{ "🦀 Rust (Actix Web and Yew)" }</li>
-                                        <li>{ "🖥 Wasm" }</li>
+                                        { for author.keywords.iter().map(|tag| html! { <li>{ tag }</li>} )}
                                     </ul>
-                                    {r#"
-                                    I hope you enjoy this website 🫶
-                                    "#}
+                                    {r#"I hope you enjoy this website 🫂"#}
                                     </div>
                                 </div>
                             </article>
