@@ -41,13 +41,13 @@ impl Component for Home {
                     </div>
                 </div>
 
-                <div class="tile is-parent container">
+                <div class="tile container">
                     { self.view_info_tiles() }
                 </div>
-                <div class="tile is-parent container">
+                <div class="tile container">
                     { self.view_particles() }
                 </div>
-                <div class="tile is-parent container">
+                <div class="tile container">
                     { self.view_author() }
                 </div>
             </div>
@@ -58,17 +58,19 @@ impl Component for Home {
 impl Home {
     fn view_info_tiles(&self) -> Html {
         html! {
-            <div class="tile is-child box">
-                <p class="title">{ "What is Standard Model?" }</p>
-                <p class="subtitle">{ "Standard Model in a nutshell!"}</p>
+            <div class="tile is-parent">
+                <div class="tile is-child">
+                    <p class="title">{ "What is Standard Model?" }</p>
+                    <p class="subtitle">{ "Standard Model in a nutshell!"}</p>
 
-                <div class="content">
-                    {r#"
-                    The Standard Model of particle physics is the theory describing three of the four known fundamental forces (electromagnetic, weak and strong interactions — excluding gravity) in the universe and classifying all known elementary particles.
-                    It was developed in stages throughout the latter half of the 20th century, through the work of many scientists worldwide,[1] with the current formulation being finalized in the mid-1970s upon experimental confirmation of the existence of quarks.
-                    Since then, proof of the top quark (1995), the tau neutrino (2000), and the Higgs boson (2012) have added further credence to the Standard Model.
-                    In addition, the Standard Model has predicted various properties of weak neutral currents and the W and Z bosons with great accuracy.
-                    "#}
+                    <div class="content">
+                        {r#"
+                        The Standard Model of particle physics is the theory describing three of the four known fundamental forces (electromagnetic, weak and strong interactions — excluding gravity) in the universe and classifying all known elementary particles.
+                        It was developed in stages throughout the latter half of the 20th century, through the work of many scientists worldwide,[1] with the current formulation being finalized in the mid-1970s upon experimental confirmation of the existence of quarks.
+                        Since then, proof of the top quark (1995), the tau neutrino (2000), and the Higgs boson (2012) have added further credence to the Standard Model.
+                        In addition, the Standard Model has predicted various properties of weak neutral currents and the W and Z bosons with great accuracy.
+                        "#}
+                    </div>
                 </div>
             </div>
         }
@@ -78,41 +80,16 @@ impl Home {
         let Self { particles, .. } = self;
 
         html! {
-            // <div class="section container is-vertical">
-            //     <div class="tile pb-3">
-            //         <article class="tile is-child box has-text-centered">
-            //             <p class="title">{"Standard Model Particles"}</p>
-            //         </article>
-            //     </div>
-            //     <div class="tile pu-3">
-            //         <div class="tile">
-            //             <article class="tile box is-child notification has-text-centered">
-            //                 <ul class="item-list">
-            //                     {
-            //                         for particles.particles.iter().map(
-            //                             |(_, particle)| html! {
-            //                                 <li class="pu-3 pb-3">{particle.part_name.clone() }</li>
-            //                             })
-            //                     }
-            //                 </ul>
-            //             </article>
-            //         </div>
-            //         <div class="tile">
-            //             <article class="tile box is-child notification has-text-centered">
-            //                 {"Particle Info Placeholder"}
-            //             </article>
-            //         </div>
-            //     </div>
-            // </div>
             <div class="section container">
-                <div class="tile is-vertical is-child">
-                    <div class="tile pb-3">
-                        <article class="tile box has-text-centered">
+                <div class="tile is-vertical">
+                    <div class="tile is-parent pb-3">
+                        <div class="tile is-child">
                             <p class="title">{"Standard Model Particles"}</p>
-                        </article>
+                        </div>
                     </div>
-                    <div class="tile">
-                        <div class="tile box notification is-4">
+
+                    <div class="tile is-parent">
+                        <div class="tile is-child notification is-4">
                             <article class="tile">
                                 <ul class="item-list">
                                     {
@@ -126,7 +103,7 @@ impl Home {
                                 </ul>
                             </article>
                         </div>
-                        <div class="tile box notification has-text-centered is-8">
+                        <div class="tile is-child notification has-text-centered is-8">
                             <article class="tile">
                                 {"Particle Info Placeholder"}
                             </article>
@@ -142,9 +119,9 @@ impl Home {
 
         html! {
             <div class="section container">
-                <div class="tile is-ancestor is-vertical">
+                <div class="tile is-vertical">
                     <div class="tile is-parent">
-                        <article class="tile is-child is-light box has-text-centered">
+                        <article class="tile is-child is-light has-text-centered">
                             <p class="title">{"Meet the author"}</p>
                         </article>
                     </div>
