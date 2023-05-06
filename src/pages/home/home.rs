@@ -1,12 +1,8 @@
-use crate::{
-    content::{Author, ParticleDatas},
-    utils::csv::read_author_csv,
-};
+use crate::{content::Author, pages::home::particles::Particles, utils::csv::read_author_csv};
 use yew::prelude::*;
 
 pub struct Home {
     author: Author,
-    particles: ParticleDatas,
 }
 
 impl Component for Home {
@@ -16,7 +12,6 @@ impl Component for Home {
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
             author: read_author_csv().unwrap_or_else(|_| Author::default()),
-            particles: ParticleDatas::default(),
         }
     }
 
@@ -45,7 +40,7 @@ impl Component for Home {
                     { self.view_info_tiles() }
                 </div>
                 <div class="tile is-ancestor">
-                    { self.view_particles() }
+                    <Particles />
                 </div>
                 <div class="tile is-ancestor">
                     { self.view_author() }
@@ -70,44 +65,6 @@ impl Home {
                         Since then, proof of the top quark (1995), the tau neutrino (2000), and the Higgs boson (2012) have added further credence to the Standard Model.
                         In addition, the Standard Model has predicted various properties of weak neutral currents and the W and Z bosons with great accuracy.
                         "#}
-                    </div>
-                </div>
-            </div>
-        }
-    }
-
-    fn view_particles(&self) -> Html {
-        let Self { particles, .. } = self;
-
-        html! {
-            <div class="tile container">
-                <div class="tile is-vertical">
-                    <div class="tile is-parent pb-3">
-                        <div class="tile is-child">
-                            <p class="title">{"Standard Model Particles"}</p>
-                        </div>
-                    </div>
-
-                    <div class="tile is-parent">
-                        <div class="tile is-child notification is-primary is-1">
-                            <article class="tile">
-                                <ul class="item-list">
-                                    {
-                                        for particles.particles.iter().map(
-                                            |(_, particle)| html! {
-                                                <li class="pu-3 has-text-centered">
-                                                {particle.part_name.clone()}
-                                                </li>
-                                            })
-                                    }
-                                </ul>
-                            </article>
-                        </div>
-                        <div class="tile is-child notification is-link has-text-centered">
-                            <article class="tile">
-                                {"Particle Info Placeholder"}
-                            </article>
-                        </div>
                     </div>
                 </div>
             </div>
