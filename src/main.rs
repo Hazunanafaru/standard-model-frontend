@@ -1,4 +1,4 @@
-use frontend::pages::home::Home;
+use frontend::pages::home::home::Home;
 use frontend::Route;
 use yew::html::Scope;
 use yew::prelude::*;
