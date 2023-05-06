@@ -22,18 +22,18 @@ impl Component for Home {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <div class="tile is-ancestor is-vertical">
-                <div class="hero is-parent">
-                    <div class="hero-body container pb-3">
-                        <h1 class="title">
+            <div class="tile is-vertical">
+                <div class="hero is-ancestor">
+                    <div class="hero-body container is-parent pb-2 pu-2">
+                        <h1 class="title is-child">
                             { "Welcome to the Standard Model!" }
                         </h1>
                     </div>
                 </div>
 
-                <div class="tile is-parent pu-3">
-                    <div class="tile is-child">
-                        <figure class="image is-3by1">
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent">
+                        <figure class="tile image is-child is-3by1">
                             <img
                                 alt="Image of Standard Model"
                                 src="https://source.unsplash.com/random/1200x400/?abstract" />
@@ -41,13 +41,13 @@ impl Component for Home {
                     </div>
                 </div>
 
-                <div class="tile container">
+                <div class="tile is-ancestor">
                     { self.view_info_tiles() }
                 </div>
-                <div class="tile container">
+                <div class="tile is-ancestor">
                     { self.view_particles() }
                 </div>
-                <div class="tile container">
+                <div class="tile is-ancestor">
                     { self.view_author() }
                 </div>
             </div>
@@ -58,7 +58,7 @@ impl Component for Home {
 impl Home {
     fn view_info_tiles(&self) -> Html {
         html! {
-            <div class="tile is-parent">
+            <div class="tile container is-parent">
                 <div class="tile is-child">
                     <p class="title">{ "What is Standard Model?" }</p>
                     <p class="subtitle">{ "Standard Model in a nutshell!"}</p>
@@ -80,7 +80,7 @@ impl Home {
         let Self { particles, .. } = self;
 
         html! {
-            <div class="section container">
+            <div class="tile container">
                 <div class="tile is-vertical">
                     <div class="tile is-parent pb-3">
                         <div class="tile is-child">
@@ -89,7 +89,7 @@ impl Home {
                     </div>
 
                     <div class="tile is-parent">
-                        <div class="tile is-child notification is-4">
+                        <div class="tile is-child notification is-primary is-1">
                             <article class="tile">
                                 <ul class="item-list">
                                     {
@@ -103,7 +103,7 @@ impl Home {
                                 </ul>
                             </article>
                         </div>
-                        <div class="tile is-child notification has-text-centered is-8">
+                        <div class="tile is-child notification is-link has-text-centered">
                             <article class="tile">
                                 {"Particle Info Placeholder"}
                             </article>
@@ -118,10 +118,10 @@ impl Home {
         let Self { author, .. } = self;
 
         html! {
-            <div class="section container">
+            <div class="tile container">
                 <div class="tile is-vertical">
                     <div class="tile is-parent">
-                        <article class="tile is-child is-light has-text-centered">
+                        <article class="tile is-child is-light">
                             <p class="title">{"Meet the author"}</p>
                         </article>
                     </div>

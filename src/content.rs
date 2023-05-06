@@ -37,7 +37,7 @@ impl ParticleData {
             part_id: id,
             part_type: p_type.to_string(),
             part_name: p_name.to_string(),
-            mass: mass,
+            mass,
             charge: charge.to_string(),
             spin: spin.to_string(),
             created_at: chrono::Local::now().naive_local(),
@@ -46,10 +46,10 @@ impl ParticleData {
     }
 }
 
-impl ParticleDatas {
+impl Default for ParticleDatas {
     // default() generate default ParticleDatas struct
     // Usefull for testing and development process
-    pub fn default() -> Self {
+    fn default() -> Self {
         Self {
             particles: {
                 HashMap::from([
@@ -75,8 +75,8 @@ impl ParticleDatas {
     }
 }
 
-impl Author {
-    pub fn default() -> Self {
+impl Default for Author {
+    fn default() -> Self {
         Self {
             name: "Husni Naufal Zuhdi".to_string(),
             keywords: vec![
