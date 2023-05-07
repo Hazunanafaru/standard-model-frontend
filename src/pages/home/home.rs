@@ -1,12 +1,8 @@
-use crate::{
-    content::{Author, ParticleDatas},
-    utils::csv::read_author_csv,
-};
+use crate::{content::Author, pages::home::particles::Particles, utils::csv::read_author_csv};
 use yew::prelude::*;
 
 pub struct Home {
     author: Author,
-    particles: ParticleDatas,
 }
 
 impl Component for Home {
@@ -16,24 +12,23 @@ impl Component for Home {
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
             author: read_author_csv().unwrap_or_else(|_| Author::default()),
-            particles: ParticleDatas::default(),
         }
     }
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <div class="tile is-ancestor is-vertical">
-                <div class="hero is-parent">
-                    <div class="hero-body container pb-3">
-                        <h1 class="title">
+            <div class="tile is-vertical">
+                <div class="hero is-ancestor">
+                    <div class="hero-body container is-parent pb-2 pu-2">
+                        <h1 class="title is-child">
                             { "Welcome to the Standard Model!" }
                         </h1>
                     </div>
                 </div>
 
-                <div class="tile is-parent pu-3">
-                    <div class="tile is-child">
-                        <figure class="image is-3by1">
+                <div class="tile is-ancestor">
+                    <div class="tile is-parent">
+                        <figure class="tile image is-child is-3by1">
                             <img
                                 alt="Image of Standard Model"
                                 src="https://source.unsplash.com/random/1200x400/?abstract" />
@@ -41,13 +36,13 @@ impl Component for Home {
                     </div>
                 </div>
 
-                <div class="tile container">
+                <div class="tile is-ancestor">
                     { self.view_info_tiles() }
                 </div>
-                <div class="tile container">
-                    { self.view_particles() }
+                <div class="tile is-ancestor">
+                    <Particles />
                 </div>
-                <div class="tile container">
+                <div class="tile is-ancestor">
                     { self.view_author() }
                 </div>
             </div>
@@ -58,7 +53,7 @@ impl Component for Home {
 impl Home {
     fn view_info_tiles(&self) -> Html {
         html! {
-            <div class="tile is-parent">
+            <div class="tile container is-parent">
                 <div class="tile is-child">
                     <p class="title">{ "What is Standard Model?" }</p>
                     <p class="subtitle">{ "Standard Model in a nutshell!"}</p>
@@ -76,52 +71,14 @@ impl Home {
         }
     }
 
-    fn view_particles(&self) -> Html {
-        let Self { particles, .. } = self;
-
-        html! {
-            <div class="section container">
-                <div class="tile is-vertical">
-                    <div class="tile is-parent pb-3">
-                        <div class="tile is-child">
-                            <p class="title">{"Standard Model Particles"}</p>
-                        </div>
-                    </div>
-
-                    <div class="tile is-parent">
-                        <div class="tile is-child notification is-4">
-                            <article class="tile">
-                                <ul class="item-list">
-                                    {
-                                        for particles.particles.iter().map(
-                                            |(_, particle)| html! {
-                                                <li class="pu-3 has-text-centered">
-                                                {particle.part_name.clone()}
-                                                </li>
-                                            })
-                                    }
-                                </ul>
-                            </article>
-                        </div>
-                        <div class="tile is-child notification has-text-centered is-8">
-                            <article class="tile">
-                                {"Particle Info Placeholder"}
-                            </article>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-    }
-
     fn view_author(&self) -> Html {
         let Self { author, .. } = self;
 
         html! {
-            <div class="section container">
+            <div class="tile container">
                 <div class="tile is-vertical">
                     <div class="tile is-parent">
-                        <article class="tile is-child is-light has-text-centered">
+                        <article class="tile is-child is-light">
                             <p class="title">{"Meet the author"}</p>
                         </article>
                     </div>

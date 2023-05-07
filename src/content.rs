@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 // ParticleData structure
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
@@ -18,7 +17,7 @@ pub struct ParticleData {
 // It hold a HashMap of ParticleData that we can access by their index
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
 pub struct ParticleDatas {
-    pub particles: HashMap<i32, ParticleData>,
+    pub particles: Vec<ParticleData>,
 }
 
 // Author structure
@@ -37,7 +36,7 @@ impl ParticleData {
             part_id: id,
             part_type: p_type.to_string(),
             part_name: p_name.to_string(),
-            mass: mass,
+            mass,
             charge: charge.to_string(),
             spin: spin.to_string(),
             created_at: chrono::Local::now().naive_local(),
@@ -46,37 +45,32 @@ impl ParticleData {
     }
 }
 
-impl ParticleDatas {
+impl Default for ParticleData {
+    // default() generate the first (index: 1) Particle Data struct
+    fn default() -> Self {
+        Self::new(1, "Quark", "Up", 2200000, "2/3", "1/2")
+    }
+}
+
+impl Default for ParticleDatas {
     // default() generate default ParticleDatas struct
     // Usefull for testing and development process
-    pub fn default() -> Self {
+    fn default() -> Self {
         Self {
             particles: {
-                HashMap::from([
-                    (
-                        1,
-                        ParticleData::new(1, "quark", "up", 2200000, "2/3", "1/2"),
-                    ),
-                    (
-                        2,
-                        ParticleData::new(2, "quark", "down", 4700000, "-1/3", "1/2"),
-                    ),
-                    (
-                        3,
-                        ParticleData::new(3, "quark", "top", 173100000000, "2/3", "1/2"),
-                    ),
-                    (
-                        4,
-                        ParticleData::new(4, "quark", "bottom", 4180000000, "-1/3", "1/2"),
-                    ),
-                ])
+                vec![
+                    ParticleData::new(1, "Quark", "Up", 2200000, "2/3", "1/2"),
+                    ParticleData::new(2, "Quark", "Down", 4700000, "-1/3", "1/2"),
+                    ParticleData::new(3, "Quark", "Top", 173100000000, "2/3", "1/2"),
+                    ParticleData::new(4, "Quark", "Bottom", 4180000000, "-1/3", "1/2"),
+                ]
             },
         }
     }
 }
 
-impl Author {
-    pub fn default() -> Self {
+impl Default for Author {
+    fn default() -> Self {
         Self {
             name: "Husni Naufal Zuhdi".to_string(),
             keywords: vec![
