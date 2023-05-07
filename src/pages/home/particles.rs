@@ -24,7 +24,6 @@ impl Component for Particles {
     fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Clicked(id) => {
-                // let part_id: usize = id.parse().unwrap_or_else(|_| 0_usize);
                 let part_id: usize = id.try_into().unwrap();
                 self.particle_info = self.particles.particles[part_id - 1].clone();
                 true
@@ -45,7 +44,7 @@ impl Component for Particles {
                     </div>
 
                     <div class="tile is-parent">
-                        <div class="tile is-child notification is-primary is-2">
+                        <div class="tile is-child notification is-primary is-3">
                             <div class="tile is-vertical">
                                 {self.view_part_buttons(ctx)}
                             </div>

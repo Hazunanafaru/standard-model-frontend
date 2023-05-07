@@ -1,4 +1,4 @@
-use crate::{content::Author, pages::home::particles::Particles, utils::csv::read_author_csv};
+use crate::{content::Author, pages::home::particles::Particles};
 use yew::prelude::*;
 
 pub struct Home {
@@ -11,7 +11,7 @@ impl Component for Home {
 
     fn create(_ctx: &Context<Self>) -> Self {
         Self {
-            author: read_author_csv().unwrap_or_else(|_| Author::default()),
+            author: Author::default(),
         }
     }
 
