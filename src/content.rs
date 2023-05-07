@@ -1,5 +1,4 @@
 use serde::{Deserialize, Serialize};
-use std::collections::HashMap;
 
 // ParticleData structure
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]

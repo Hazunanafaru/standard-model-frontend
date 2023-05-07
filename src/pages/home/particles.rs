@@ -4,11 +4,10 @@ use yew::prelude::*;
 pub struct Particles {
     particles: ParticleDatas,
     particle_info: ParticleData,
-    test_id: i32,
 }
 
 pub enum Msg {
-    Clicked(String),
+    Clicked(i32),
 }
 
 impl Component for Particles {
@@ -19,30 +18,22 @@ impl Component for Particles {
         Self {
             particles: ParticleDatas::default(),
             particle_info: ParticleData::default(),
-            test_id: 0_i32,
         }
     }
 
-    fn update(&mut self, ctx: &Context<Self>, msg: Self::Message) -> bool {
+    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
         match msg {
             Msg::Clicked(id) => {
-                let part_id: usize = id.parse().unwrap_or_else(|_| 0_usize);
-                self.particle_info = self.particles.particles[part_id].clone();
+                // let part_id: usize = id.parse().unwrap_or_else(|_| 0_usize);
+                let part_id: usize = id.try_into().unwrap();
+                self.particle_info = self.particles.particles[part_id - 1].clone();
                 true
             }
         }
     }
 
     fn view(&self, ctx: &Context<Self>) -> Html {
-        let Self {
-            particles,
-            particle_info,
-            ..
-        } = self;
-
-        // let onclick = ctx
-        //     .link()
-        //     .callback(|part_id: AttrValue| Msg::Clicked(part_id));
+        let Self { particle_info, .. } = self;
 
         html! {
             <div class="tile container">
@@ -56,26 +47,7 @@ impl Component for Particles {
                     <div class="tile is-parent">
                         <div class="tile is-child notification is-primary is-2">
                             <div class="tile is-vertical">
-                                <button class="button is-primary"
-                                    onclick={ctx.link().callback(|_| Msg::Clicked("0".to_string()))}
-                                >
-                                    {&particles.particles[0].part_name}
-                                </button>
-                                <button class="button is-primary"
-                                    onclick={ctx.link().callback(|_| Msg::Clicked("1".to_string()))}
-                                >
-                                    {&particles.particles[1].part_name}
-                                </button>
-                                <button class="button is-primary"
-                                    onclick={ctx.link().callback(|_| Msg::Clicked("2".to_string()))}
-                                >
-                                    {&particles.particles[2].part_name}
-                                </button>
-                                <button class="button is-primary"
-                                    onclick={ctx.link().callback(|_| Msg::Clicked("3".to_string()))}
-                                >
-                                    {&particles.particles[3].part_name}
-                                </button>
+                                {self.view_part_buttons(ctx)}
                             </div>
                         </div>
                         <div class="tile is-child notification is-link has-text-centered">
@@ -107,5 +79,30 @@ impl Component for Particles {
                 </div>
             </div>
         }
+    }
+}
+
+impl Particles {
+    // view_part_buttons(ctx) iterate over particles then create button
+    // with particle name and callback to update particle info
+    fn view_part_buttons(&self, ctx: &Context<Self>) -> Html {
+        self.particles
+            .particles
+            .iter()
+            .map(|part| {
+                let on_part_select = {
+                    let part = part.clone();
+                    ctx.link()
+                        .callback(move |_| Msg::Clicked(part.part_id.clone()))
+                };
+
+                html! {
+                    <button class="button is-primary"
+                    onclick={on_part_select}>
+                        {part.part_name.clone()}
+                    </button>
+                }
+            })
+            .collect()
     }
 }
