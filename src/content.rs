@@ -18,7 +18,7 @@ pub struct ParticleData {
 // It hold a HashMap of ParticleData that we can access by their index
 #[derive(Clone, Debug, Eq, PartialEq, Deserialize, Serialize)]
 pub struct ParticleDatas {
-    pub particles: HashMap<i32, ParticleData>,
+    pub particles: Vec<ParticleData>,
 }
 
 // Author structure
@@ -59,24 +59,12 @@ impl Default for ParticleDatas {
     fn default() -> Self {
         Self {
             particles: {
-                HashMap::from([
-                    (
-                        1,
-                        ParticleData::new(1, "Quark", "Up", 2200000, "2/3", "1/2"),
-                    ),
-                    (
-                        2,
-                        ParticleData::new(2, "Quark", "Down", 4700000, "-1/3", "1/2"),
-                    ),
-                    (
-                        3,
-                        ParticleData::new(3, "Quark", "Top", 173100000000, "2/3", "1/2"),
-                    ),
-                    (
-                        4,
-                        ParticleData::new(4, "Quark", "Bottom", 4180000000, "-1/3", "1/2"),
-                    ),
-                ])
+                vec![
+                    ParticleData::new(1, "Quark", "Up", 2200000, "2/3", "1/2"),
+                    ParticleData::new(2, "Quark", "Down", 4700000, "-1/3", "1/2"),
+                    ParticleData::new(3, "Quark", "Top", 173100000000, "2/3", "1/2"),
+                    ParticleData::new(4, "Quark", "Bottom", 4180000000, "-1/3", "1/2"),
+                ]
             },
         }
     }
